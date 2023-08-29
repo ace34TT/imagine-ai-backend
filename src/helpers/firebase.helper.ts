@@ -1,7 +1,7 @@
 import * as admin from "firebase-admin";
 import path from "path";
 const tempDirectory = path.resolve(__dirname, "../tmp/");
-
+import fs from "fs";
 admin.initializeApp({
   credential: admin.credential.cert({
     projectId: "imagine-ai-v3",
@@ -34,6 +34,9 @@ export const saveFileUrl = async (fileUrl: string) => {
 };
 
 export const saveFileFromFirebase = async (filename: string) => {
+  if (!fs.existsSync(tempDirectory)) {
+    fs.mkdirSync(tempDirectory, { recursive: true });
+  }
   const bucket = admin.storage().bucket();
   const file = bucket.file("images/" + filename);
   const destination = path.resolve(tempDirectory + "/" + filename);

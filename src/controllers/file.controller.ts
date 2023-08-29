@@ -1,9 +1,15 @@
 import { Request, Response } from "express";
-import { deleteImage, fetchImage, getFilePath } from "../helpers/file.helper";
+import {
+  deleteImage,
+  fetchImage,
+  getFileName,
+  getFilePath,
+} from "../helpers/file.helper";
+import url from "url";
 export const downloadImageHandler = async (req: Request, res: Response) => {
-  const fileName = await fetchImage(req.body.url);
+  const url: string = req.query.url as string;
+  const fileName = await fetchImage(url);
   const file = await getFilePath(fileName);
-  // deleteImage(fileName);
   res.download(file, (err) => {
     if (err) {
       console.log(err);

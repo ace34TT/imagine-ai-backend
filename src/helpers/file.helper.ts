@@ -52,21 +52,20 @@ export const fetchImage = async (url: string) => {
       `Failed to fetch image: ${response.status} ${response.statusText}`
     );
   }
+  if (!fs.existsSync(tempDirectory)) {
+    fs.mkdirSync(tempDirectory, { recursive: true });
+  }
   const fileName = generateRandomString(10);
-  console.log(path.resolve(tempDirectory + "/" + fileName));
   const fileStream = fs.createWriteStream(
     path.resolve(tempDirectory + "/" + (fileName + ".png"))
   );
-
   await new Promise((resolve, reject) => {
     response.body.pipe(fileStream);
     response.body.on("error", reject);
     fileStream.on("finish", resolve);
   });
-
   return fileName + ".png";
 };
-
 export const getFile = async (fileName: string) => {
   try {
     const data = await fs.promises.readFile(
@@ -77,4 +76,15 @@ export const getFile = async (fileName: string) => {
     throw err; // You can handle or rethrow the error as needed
   }
 };
-export const checkFile = async () => {};
+export const getFilePath = async (fileName: string) => {
+  return path.resolve(tempDirectory, fileName);
+};
+export const deleteImage = async (filename: string) => {
+  console.log("deleting : " + path.resolve(tempDirectory, filename));
+  fs.unlinkSync(path.resolve(tempDirectory, filename));
+};
+export const getFileName = (url: string) => {
+  const parts = url.split("/");
+  const fileName = parts[parts.length - 1];
+  return fileName;
+};

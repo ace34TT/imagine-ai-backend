@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Request, Response } from "express";
-import { fetchImage, getFile } from "../helpers/file.helper";
+import { deleteImage, fetchImage, getFile } from "../helpers/file.helper";
 import { uploadFileToFirebase } from "../helpers/firebase.helper";
 const sdk = require("api")("@runpod/v1.0#18nw21lj8lwwiy");
 
@@ -18,7 +18,7 @@ export const makeRequestHandler = async (req: Request, res: Response) => {
       },
       data: {
         input: {
-          prompt: "Einstein in space around the logarithm scheme",
+          prompt: req.body.prompt,
           negative_prompt:
             "disfigured mouth, disfigured teeth, half head, half face, blury, side looking, old, wrinkle, child, no face, pencil, full body, sharp, far away, overlapping, duplication, nude, disfigured, kitsch, oversaturated, grain, low-res, Deformed, blurry, bad anatomy, poorly drawn face, mutation, mutated, extra limb, ugly, poorly drawn hands, missing limb, blurry, floating limbs, disconnected limbs, malformed hands, blur, out of focus, long body, disgusting, poorly drawn, childish, mutilated, mangled, surreal, out of frame, duplicate, 2 faces",
           num_steps: 100,
@@ -33,6 +33,7 @@ export const makeRequestHandler = async (req: Request, res: Response) => {
         },
       },
     };
+    console.log("================START================");
     console.log("processing request");
     const result = await axios.request(options);
     // console.log(result.data);
@@ -47,6 +48,9 @@ export const makeRequestHandler = async (req: Request, res: Response) => {
     const finalUrl = await uploadFileToFirebase(file, fileName);
     console.log(finalUrl);
     console.log("Ok");
+    console.log("deleting file");
+    deleteImage(fileName);
+    console.log("================END================");
     return res.status(200).json({ image_url: finalUrl });
   } catch (error: any) {
     console.log(error.message);

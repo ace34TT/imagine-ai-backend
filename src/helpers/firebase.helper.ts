@@ -32,3 +32,10 @@ export const saveFileUrl = async (fileUrl: string) => {
     timestamp: new Date(),
   });
 };
+
+export const saveFileFromFirebase = async (filename: string) => {
+  const bucket = admin.storage().bucket();
+  const file = bucket.file("images/" + filename);
+  const destination = path.resolve(tempDirectory + "/" + filename);
+  await file.download({ destination });
+};

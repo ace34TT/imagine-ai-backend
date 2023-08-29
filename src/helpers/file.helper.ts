@@ -66,6 +66,7 @@ export const fetchImage = async (url: string) => {
   });
   return fileName + ".png";
 };
+
 export const getFile = async (fileName: string) => {
   try {
     const data = await fs.promises.readFile(

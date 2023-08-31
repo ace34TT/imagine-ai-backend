@@ -32,7 +32,6 @@ export const saveFileUrl = async (fileUrl: string) => {
     timestamp: new Date(),
   });
 };
-
 export const saveFileFromFirebase = async (filename: string) => {
   if (!fs.existsSync(tempDirectory)) {
     fs.mkdirSync(tempDirectory, { recursive: true });

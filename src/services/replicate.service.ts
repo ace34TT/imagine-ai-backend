@@ -6,11 +6,18 @@ export const makeRequest = async (prompt: string) => {
     {
       input: {
         prompt: prompt,
-        width: 512,
-        height: 512,
+        negative_prompt: "extra fingers , crossed fingers , bad hand",
+        width: 1024,
+        height: 1024,
+        scheduler: "DDIM",
+        num_inference_steps: 30,
+        guidance_scale: 7.5,
+        prompt_strength: 0.8,
+        refine: "expert_ensemble_refiner",
+        high_noise_frac: 0.8,
+        lora_scale: 0.6,
       },
     }
   );
-  console.log(output);
   return output;
 };

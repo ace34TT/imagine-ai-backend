@@ -7,8 +7,8 @@ export const makeRequest = async (prompt: string) => {
       input: {
         prompt: prompt,
         negative_prompt: "extra fingers , crossed fingers , bad hand",
-        width: 1024,
-        height: 1024,
+        width: 768,
+        height: 768,
         scheduler: "DDIM",
         num_inference_steps: 30,
         guidance_scale: 7.5,

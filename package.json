@@ -21,6 +21,8 @@
     "express-list-routes": "^1.1.5",
     "firebase": "^10.3.0",
     "firebase-admin": "^11.10.1",
+    "moment": "^2.29.4",
+    "momentjs": "^2.0.0",
     "node-cron": "^3.0.2",
     "node-fetch": "^2.7.0",
     "replicate": "^0.16.1"

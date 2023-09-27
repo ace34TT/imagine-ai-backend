@@ -3,16 +3,33 @@ import axios from "axios";
 import { Request, Response } from "express";
 import { deleteImage, fetchImage, getFile } from "../helpers/file.helper";
 import { uploadFileToFirebase } from "../helpers/firebase.helper";
+import { kandinsky } from "../services/runpod.service";
+import { logger } from "../helpers/logger.helper";
 
-export const makeSdxlRequestHandler = async (req: Request, res: Response) => {
+export const makeRequest = async (req: Request, res: Response) => {
   try {
-    console.log("================START================");
-    console.log("processing request");
-    const data: any = await sdxl(req.body.prompt);
-    console.log(data[0]);
+    logger("================START================");
+    logger("processing request");
+    let data: any;
+    switch (req.params.model) {
+      case "sdxl":
+        data = await sdxl(req.body.prompt);
+        data = data[0];
+        break;
+      case "wuerstchen_v2":
+        data = await wuerstchen_v2(req.body.prompt);
+        data = data[0];
+        break;
+      case "kandinsky_v2":
+        data = await kandinsky(req.body.prompt);
+        break;
+      default:
+        return res.status(400).json({ message: "Model not found" });
+    }
+    logger(data);
     console.log("Ok");
     console.log("fetching file");
-    const fileName = await fetchImage(data[0]);
+    const fileName = await fetchImage(data);
     console.log("Ok");
     console.log("uploading file");
     console.log(fileName);

@@ -1,11 +1,8 @@
 import express from "express";
-import {
-  makeSdxlRequestHandler,
-  makeWuerstchenV2RequestHandler,
-} from "../controllers/request.controller";
+import { makeRequest } from "../controllers/request.controller";
 
 const router = express.Router();
 
-router.post("/generate/sdxl", makeSdxlRequestHandler);
-router.post("/generate/wuerstchen_v2", makeSdxlRequestHandler);
+router.post("/generate/:model", makeRequest);
+
 export { router as RunpodRoutes };

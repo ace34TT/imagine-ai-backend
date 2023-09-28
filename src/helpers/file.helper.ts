@@ -14,37 +14,6 @@ export const generateRandomString = (length: number) => {
   }
   return result;
 };
-export const resizeImage = (file: Blob | MediaSource): Promise<Blob> => {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.onload = () => {
-      const maxSize = 512;
-      let width = img.width;
-      let height = img.height;
-      if (width > maxSize || height > maxSize) {
-        if (width > height) {
-          height *= maxSize / width;
-          width = maxSize;
-        } else {
-          width *= maxSize / height;
-          height = maxSize;
-        }
-      }
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
-      canvas.width = width;
-      canvas.height = height;
-      ctx!.drawImage(img, 0, 0, width, height);
-      canvas.toBlob((blob) => {
-        resolve(blob!);
-      }, "image/jpeg");
-    };
-    img.onerror = (error) => {
-      reject(error);
-    };
-    img.src = URL.createObjectURL(file);
-  });
-};
 export const fetchImage = async (url: string) => {
   const response = await nodeFetch(url);
   if (!response.ok) {

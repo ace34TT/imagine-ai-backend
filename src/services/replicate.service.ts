@@ -8,8 +8,8 @@ export const sdxl = async (prompt: string) => {
         input: {
           prompt: prompt,
           negative_prompt: "extra fingers , crossed fingers , bad hand",
-          width: 512,
-          height: 512,
+          width: 1024,
+          height: 1024,
           scheduler: "DDIM",
           num_inference_steps: 30,
           guidance_scale: 7.5,
@@ -33,8 +33,8 @@ export const wuerstchen_v2 = async (prompt: string) => {
         input: {
           prompt: prompt,
           negative_prompt: "extra fingers , crossed fingers , bad hand",
-          width: 512,
-          height: 512,
+          width: 1024,
+          height: 1024,
           prior_num_inference_steps: 30,
         },
       }

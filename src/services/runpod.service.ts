@@ -9,7 +9,7 @@ export const kandinsky = async (prompt: any) => {
     headers: {
       accept: "application/json",
       "content-type": "application/json",
-      authorization: "E7K20UBU7T1GYLOFNIYEEMEF8O5W4Y4LW3X0XJC2",
+      authorization: "K3BJMLGT2VXUOG5LV3C4EY30FJ1RLVY1COHHZ336",
     },
     data: {
       input: {

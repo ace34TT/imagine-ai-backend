@@ -11,6 +11,7 @@ export const makeRequest = async (req: Request, res: Response) => {
     logger("================START================");
     logger("processing request");
     let data: any;
+    console.log(req.params.model);
     switch (req.params.model) {
       case "sdxl":
         data = await sdxl(req.body.prompt);

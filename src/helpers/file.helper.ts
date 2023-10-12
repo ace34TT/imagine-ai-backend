@@ -2,7 +2,6 @@ import nodeFetch from "node-fetch";
 import fs from "fs";
 import path from "path";
 const tempDirectory = path.resolve(__dirname, "../tmp/");
-console.log(tempDirectory);
 
 export const generateRandomString = (length: number) => {
   let result = "";

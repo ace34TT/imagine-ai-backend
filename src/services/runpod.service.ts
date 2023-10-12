@@ -1,4 +1,5 @@
 import axios from "axios";
+require("dotenv").config();
 
 export const kandinsky = async (prompt: any) => {
   try {
@@ -8,7 +9,7 @@ export const kandinsky = async (prompt: any) => {
       headers: {
         accept: "application/json",
         "content-type": "application/json",
-        authorization: "K3BJMLGT2VXUOG5LV3C4EY30FJ1RLVY1COHHZ336",
+        authorization: process.env.RUNPOD_AUTH,
       },
       data: {
         input: {
@@ -17,8 +18,8 @@ export const kandinsky = async (prompt: any) => {
             "disfigured mouth, disfigured teeth, half head, half face, blury, side looking, old, wrinkle, child, no face, pencil, full body, sharp, far away, overlapping, duplication, nude, disfigured, kitsch, oversaturated, grain, low-res, Deformed, blurry, bad anatomy, poorly drawn face, mutation, mutated, extra limb, ugly, poorly drawn hands, missing limb, blurry, floating limbs, disconnected limbs, malformed hands, blur, out of focus, long body, disgusting, poorly drawn, childish, mutilated, mangled, surreal, out of frame, duplicate, 2 faces",
           num_steps: 100,
           guidance_scale: 4,
-          h: 1024,
-          w: 1024,
+          h: 512,
+          w: 512,
           sampler: "ddim",
           prior_cf_scale: 4,
           prior_steps: "5",
